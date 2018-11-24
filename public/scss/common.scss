@@ -1,0 +1,99 @@
+/* 整个项目都能使用的css */
+
+body,
+html {
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: #f5f5f5;
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    border-bottom: 1px solid #ccc;
+    background: #438eb9;
+
+    .logo a {
+        font-size: 26px;
+        color: #fff;
+
+    }
+
+    .right {
+        display: flex;
+        align-items: center;
+        color: #fff;
+
+        p {
+            margin-right: 20px;
+        }
+    }
+}
+
+.menu {
+    width: 220px;
+    height: 100%;
+    overflow-y: auto;
+    border-right: 1px solid #ccc;
+    background: #f5f5f5;
+
+    li {
+        height: 40px;
+        line-height: 40px;
+        border-bottom: 1px solid #ccc;
+        cursor: pointer;
+
+        text-align: center;
+
+    }
+
+    li:hover {
+        background: #fff;
+    }
+}
+
+.form-inline {
+    margin: 10px 0;
+}
+
+.main {
+    display: flex;
+
+    .body {
+        flex: 1;
+        padding: 0 20px;
+        background: #fff;
+    }
+}
+
+// .table {
+//     // color: #fff;
+// }
+
+.table-hover>tbody>tr:hover {
+    background: #75aee0;
+}
+
+// .pagination>.active>a {
+//     background: #b2a6fa;
+//     border-color: #b2a6fa;
+// }
+.pagination {
+    float: right;
+}
+
+.main {
+    flex: 1;
+}
+
+.foot {
+    height: 50px;
+    border-top: 1px solid #ccc;
+}
