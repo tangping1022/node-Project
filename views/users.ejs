@@ -18,64 +18,170 @@
         <div class="main">
             <%- include('./common/menu.ejs')%>
             <div class="body">
+                <div class="card">
 
-                <form class="form-inline">
-                    <input type="text" class="form-control">
-                    <button class="btn btn-primary">搜索</button>
-
-                </form>
+                    <div class="card-body">
 
 
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <nav>
-                    <ul class="pagination">
-                        <li>
-                            <a href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li>
-                            <a href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                        <form class="form-inline">
+                            <input type="text" class="form-control">
+                            <button class="btn  btnSeach">搜索</button>
+                        </form>
 
+                        <table class="table  ">
+                            <thead class="theadTitle">
+                                <tr>
+                                    <th>
+                                        #
+                                    </th>
+                                    <th>
+                                        姓名
+                                    </th>
+                                    <th>
+                                        年龄
+                                    </th>
+                                    <th>
+                                        联系电话
+                                    </th>
+                                    <th>
+                                        地址
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <% for(var i=0;i<data.length;i++){ %>
+                                <tr>
+                                    <td>
+                                        <%= data[i].uid%>
+                                    </td>
+                                    <td>
+                                        <%= data[i].name%>
+                                    </td>
+                                    <td>
+                                        <%= data[i].age%>
+                                    </td>
+                                    <td>
+                                        <%= data[i].phone%>
+                                    </td>
+                                    <td>
+                                        <%= data[i].address%>
+                                    </td>
+                                </tr>
+
+
+                                <% }%>
+
+                                <!-- <tr class="table-info">
+                                    <td>
+                                        <%= data %>
+                                    </td>
+                                    <td>
+                                        Herman Beck
+                                    </td>
+                                    <td>
+                                        Photoshop
+                                    </td>
+                                    <td>
+                                        $ 77.99
+                                    </td>
+                                    <td>
+                                        May 15, 2015
+                                    </td>
+                                </tr>
+                                <tr class="table-warning">
+                                    <td>
+                                        2
+                                    </td>
+                                    <td>
+                                        Messsy Adam
+                                    </td>
+                                    <td>
+                                        Flash
+                                    </td>
+                                    <td>
+                                        $245.30
+                                    </td>
+                                    <td>
+                                        July 1, 2015
+                                    </td>
+                                </tr>
+                                <tr class="table-danger">
+                                    <td>
+                                        3
+                                    </td>
+                                    <td>
+                                        John Richards
+                                    </td>
+                                    <td>
+                                        Premeire
+                                    </td>
+                                    <td>
+                                        $138.00
+                                    </td>
+                                    <td>
+                                        Apr 12, 2015
+                                    </td>
+                                </tr>
+                                <tr class="table-success">
+                                    <td>
+                                        4
+                                    </td>
+                                    <td>
+                                        Peter Meggik
+                                    </td>
+                                    <td>
+                                        After effects
+                                    </td>
+                                    <td>
+                                        $ 77.99
+                                    </td>
+                                    <td>
+                                        May 15, 2015
+                                    </td>
+                                </tr>
+                                <tr class="table-primary">
+                                    <td>
+                                        5
+                                    </td>
+                                    <td>
+                                        Edward
+                                    </td>
+                                    <td>
+                                        Illustrator
+                                    </td>
+                                    <td>
+                                        $ 160.25
+                                    </td>
+                                    <td>
+                                        May 03, 2015
+                                    </td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+
+                        <nav>
+                            <ul class="pagination">
+                                <li>
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li>
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
             </div>
 
         </div>
