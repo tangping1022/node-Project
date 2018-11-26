@@ -21,6 +21,8 @@ body {
         // float: left;
         border-radius: 0px;
         margin: 10% auto;
+        color: #fff;
+        font-size: 18px;
 
         h2 {
 
@@ -31,6 +33,18 @@ body {
             font-family: 'Nunito', sans-serif;
             text-align: center;
         }
+
+        input::-webkit-input-placeholder {
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .adminStrat {
+            width: 50%;
+            line-height: 70px;
+        }
+
+
     }
 }
 
@@ -78,6 +92,10 @@ body {
     font-family: 'Muli', sans-serif;
     border-radius: 4px;
 }
+
+// .content input {
+//     text-align: left;
+// }
 
 .sign-in {
     padding: 10px;

@@ -1,9 +1,30 @@
 var express = require('express');
 var router = express.Router();
-
+var usersModel = require('../model/usersModel.js');
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.send('respond with a resource');
 });
 
+//注册处理
+router.post('/regist', function (req, res) {
+  usersModel.add(req.body, function (err) {
+    if (err) {
+      res.send('werror', err);
+    } else {
+      res.redirect('/login.html');
+    }
+  })
+})
+
+//登录处理
+router.post('/login', function (req, res) {
+  usersModel.add(req.body, function (err) {
+    if (err) {
+      res.send('werror', err);
+    } else {
+      res.redirect('/');
+    }
+  })
+})
 module.exports = router;

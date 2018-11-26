@@ -15,7 +15,9 @@ body {
     background-color: rgba(0, 0, 0, 0.08);
     padding: 30px 0;
     border-radius: 0px;
-    margin: 10% auto; }
+    margin: 10% auto;
+    color: #fff;
+    font-size: 18px; }
     body .content h2 {
       font-size: 40px;
       padding: 30px 0 0;
@@ -23,6 +25,12 @@ body {
       font-weight: 300;
       font-family: 'Nunito', sans-serif;
       text-align: center; }
+    body .content input::-webkit-input-placeholder {
+      color: #fff;
+      font-size: 18px; }
+    body .content .adminStrat {
+      width: 50%;
+      line-height: 70px; }
 
 .content input[type="text"] {
   padding: 10px 40px 10px 10px;

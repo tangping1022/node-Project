@@ -14,12 +14,22 @@
 
     <div class="content" style="margin-top: 6%;">
         <h2> 用户注册</h2>
-        <form>
-            <input type="text" name="userid" value="USERNAME" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'USERNAME';}">
+        <form action="/users/regist" method="post">
+            用户名： <input type="text" class="username" name="username" placeholder="请输入用户名">
             <br>
-            <input type="tel" name="usrtel" value="PHONE" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'PHONE';}">
+            密&emsp;码： <input type="password" class="password" name="pwd" placeholder="请输入密码">
             <br>
-            <input type="password" name="psw" value="PASSWORD" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'PASSWORD';}">
+            确认密码：<input type="password" class="passwordend" name="pwdend" placeholder="请再次输入密码">
+            <br>
+            昵&emsp;称： <input type="text" class="nickname" name="nickname" placeholder="昵称">
+            <br>
+            手机号： <input type="text" class="phone" name="phone" placeholder="请输入手机号">
+            <div class="adminStrat">
+                是否是管理员：<input type="checkbox" value="1" name="isadmin">yes <input type="checkbox" name="isadmin" value="0"
+                    checked="checked">no
+
+            </div>
+            <!-- 是否是管理员：<input type="checkbox">yes <input type="checkbox">no -->
             <div class="button-row">
                 <input type="submit" class="sign-in" value="注册">
             </div>
@@ -29,3 +39,37 @@
 </body>
 
 </html>
+
+<script src="js/jquery.min.js"></script>
+<!-- <script>
+    $(".sign-in").click(function () {
+        var username = $(".username").val();
+        // var phone = $(".phone").val();
+        var password = $(".password").val();
+        if (username == "USERNAME") {
+            alert("请输入用户名！");
+        } else if (password == "PASSWORD") {
+            alert("请输入密码！");
+        }
+        var data = {
+            "uname": username,
+            "upwd": password
+        }
+        $.ajax({
+            url: 'regist',
+            type: 'post',
+            contentType: "application/json; charset=UTF-8",
+            data: data,
+            success: function (data, status) {
+                location.href = "login";
+                // console.log(status);
+                // if (status == "status") {
+
+                // }
+            },
+            error: function (data, err) {
+                location.href = "regist.html";
+            }
+        })
+    })
+</script> -->

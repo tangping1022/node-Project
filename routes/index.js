@@ -30,6 +30,8 @@ router.get('/regist.html', function (req, res) {
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 
+
+//渲染数据到页面上 
 MongoClient.connect(url, function (err, db) {
   if (err) throw err;
   var dbo = db.db('nodeProject');
@@ -47,6 +49,5 @@ MongoClient.connect(url, function (err, db) {
     db.close();
   })
 })
-
 
 module.exports = router;
