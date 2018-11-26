@@ -19,9 +19,9 @@ router.post('/regist', function (req, res) {
 
 //登录处理
 router.post('/login', function (req, res) {
-  usersModel.add(req.body, function (err) {
+  usersModel.login(req.body, function (err, data) {
     if (err) {
-      res.send('werror', err);
+      res.render('werror', err);
     } else {
       res.redirect('/');
     }

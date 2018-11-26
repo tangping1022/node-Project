@@ -14,10 +14,10 @@
 
     <div class="content">
         <h2> 用户登录</h2>
-        <form>
-            <input type="text" name="userid" value="USERNAME" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'USERNAME';}">
+        <form action="/users/login" method="POST">
+            <input type="text" name="username" value="USERNAME" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'USERNAME';}">
             <br>
-            <input type="password" name="psw" value="PASSWORD" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'PASSWORD';}">
+            <input type="password" name="pwd" value="PASSWORD" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'PASSWORD';}">
             <div class="button-row">
                 <input type="submit" class="sign-in" value="登录">
             </div>

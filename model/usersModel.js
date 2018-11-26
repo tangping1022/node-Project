@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const url = 'mongodb://127.0.0.1:27017';
-
+const async = require('async');
 const usersModel = {
     //注册
     add(data, cb) {
@@ -80,7 +80,49 @@ const usersModel = {
             })
         })
     },
-
+    /**
+     * 
+     * @param {object} data  //登录信息
+     * @param {function} cb   //回调
+     */
+    login(data, cb) {
+        MongoClient.connect(url, function (err, cliect) {
+            if (err) {
+                cb({
+                    code: -100,
+                    msg: "数据库连接失败"
+                })
+            } else {
+                const db = cliect.db('nodeProject');
+                db.collection('users').find({
+                    username: data.username,
+                    pwd: data.pwd
+                }).toArray(function (err, data) {
+                    if (err) {
+                        console.log('查询数据库失败', err);
+                        cb({
+                            code: -101,
+                            msg: err
+                        });
+                        cliect.close();
+                    } else if (data.length <= 0) {
+                        console.log('用户不能登录');
+                        cb({
+                            code: -102,
+                            msg: '用户名或密码错误'
+                        });
+                    } else {
+                        cb(null, {
+                            username: data[0].username,
+                            nickname: data[0].nickname,
+                            isadmin: data[0].isadmin
+                        });
+                    }
+                    cliect.close();
+                })
+            }
+        })
+    }
 
 
 }
