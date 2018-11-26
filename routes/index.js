@@ -4,9 +4,15 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', {
-    title: 'Express'
-  });
+
+  if (req.cookies.username) {
+    res.render('index', {
+      title: 'Express'
+    });
+  } else {
+    res.redirect('/login.html');
+  }
+
 });
 
 // router.get('/users.html', function (req, res) {

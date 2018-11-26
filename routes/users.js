@@ -23,6 +23,15 @@ router.post('/login', function (req, res) {
     if (err) {
       res.render('werror', err);
     } else {
+      res.cookie('username', data.username, {
+        maxAge: 1000 * 60 * 10
+      });
+      res.cookie('nickname', data.nickname, {
+        maxAge: 1000 * 60 * 10
+      })
+      res.cookie('isadmin', data.isadmin, {
+        maxAge: 1000 * 60 * 10
+      })
       res.redirect('/');
     }
   })
