@@ -7,7 +7,9 @@ router.get('/', function (req, res, next) {
 
   if (req.cookies.username) {
     res.render('index', {
-      title: 'Express'
+      username: req.cookies.username,
+      nickname: req.cookies.nickname,
+      isadmin: parseInt(req.cookies.isadmin) ? '(管理员)' : ' '
     });
   } else {
     res.redirect('/login.html');

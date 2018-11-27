@@ -51,14 +51,22 @@ const usersModel = {
                                 code: -101,
                                 msg: "查询表的所有记录条数失败"
                             })
-                        } else {
+                        } else if (num === 0) {
                             saveData._id = num + 1;
                             callback(null);
+                        } else {
+                            db.collection('users').find({}).sort({
+                                _id: -1
+                            }).limit(1).toArray(function (err, result) {
+                                saveData._id = parseInt(result[0]._id) + 1;
+                                callback(null);
+                            })
                         }
                     })
                 },
                 function (callback) {
                     db.collection('users').insertOne(saveData, function (err) {
+                        console.log(saveData);
                         if (err) {
                             callback({
                                 code: -101,
