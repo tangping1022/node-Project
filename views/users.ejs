@@ -35,151 +35,82 @@
                                         #
                                     </th>
                                     <th>
-                                        姓名
+                                        用户名
+                                    </th>
+                                    <th>
+                                        昵称
+                                    </th>
+                                    <th>
+                                        性别
                                     </th>
                                     <th>
                                         年龄
                                     </th>
                                     <th>
-                                        联系电话
+                                        是否管理员
                                     </th>
                                     <th>
-                                        地址
+                                        操作
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-
-                                <% for(var i=0;i<data.length;i++){ %>
+                                <% for(var i=0;i<userList.length;i++){ %>
                                 <tr>
                                     <td>
-                                        <%= data[i].uid%>
+                                        <%= i+1 %>
                                     </td>
                                     <td>
-                                        <%= data[i].name%>
+                                        <%= userList[i].username%>
                                     </td>
                                     <td>
-                                        <%= data[i].age%>
+                                        <%= userList[i].nickname%>
                                     </td>
                                     <td>
-                                        <%= data[i].phone%>
+                                        <%= i+1 %>
                                     </td>
                                     <td>
-                                        <%= data[i].address%>
+                                        <%= i+1 %>
+                                    </td>
+                                    <td>
+                                        <%= parseInt(userList[i].isadmin)?'是':'否' %>
+                                    </td>
+                                    <td>
+                                        <% if(userList[i].username===username){%>
+
+                                        <a href="#" style='color:#3e4b5b'>修改</a>
+
+                                        <%}else if(parseInt(userList[i].isadmin)) {%>
+
+                                        <% } else{%>
+                                        <a href="#" style='color:#3e4b5b'>修改</a>&emsp;
+                                        <a href="/users/delete" style='color:#3e4b5b'>删除</a>
+                                        <% }%>
                                     </td>
                                 </tr>
-
-
                                 <% }%>
-
-                                <!-- <tr class="table-info">
-                                    <td>
-                                        <%= data %>
-                                    </td>
-                                    <td>
-                                        Herman Beck
-                                    </td>
-                                    <td>
-                                        Photoshop
-                                    </td>
-                                    <td>
-                                        $ 77.99
-                                    </td>
-                                    <td>
-                                        May 15, 2015
-                                    </td>
-                                </tr>
-                                <tr class="table-warning">
-                                    <td>
-                                        2
-                                    </td>
-                                    <td>
-                                        Messsy Adam
-                                    </td>
-                                    <td>
-                                        Flash
-                                    </td>
-                                    <td>
-                                        $245.30
-                                    </td>
-                                    <td>
-                                        July 1, 2015
-                                    </td>
-                                </tr>
-                                <tr class="table-danger">
-                                    <td>
-                                        3
-                                    </td>
-                                    <td>
-                                        John Richards
-                                    </td>
-                                    <td>
-                                        Premeire
-                                    </td>
-                                    <td>
-                                        $138.00
-                                    </td>
-                                    <td>
-                                        Apr 12, 2015
-                                    </td>
-                                </tr>
-                                <tr class="table-success">
-                                    <td>
-                                        4
-                                    </td>
-                                    <td>
-                                        Peter Meggik
-                                    </td>
-                                    <td>
-                                        After effects
-                                    </td>
-                                    <td>
-                                        $ 77.99
-                                    </td>
-                                    <td>
-                                        May 15, 2015
-                                    </td>
-                                </tr>
-                                <tr class="table-primary">
-                                    <td>
-                                        5
-                                    </td>
-                                    <td>
-                                        Edward
-                                    </td>
-                                    <td>
-                                        Illustrator
-                                    </td>
-                                    <td>
-                                        $ 160.25
-                                    </td>
-                                    <td>
-                                        May 03, 2015
-                                    </td>
-                                </tr> -->
                             </tbody>
                         </table>
-
                         <nav>
                             <ul class="pagination">
                                 <li>
-                                    <a href="#" aria-label="Previous">
+                                    <a href="/users.html?page=<%= currentPage-1 < 1 ? 1: currentPage -1 %>&pageSize=<%= pageSize%>"
+                                        aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
+                                <% for(var i=0; i < totalpage; i++) { %>
+                                <li class="<%= currentPage == (i+1) ? 'active': '' %>"><a href="/users.html?page=<%=i+1%>&pageSize=<%= pageSize %>">
+                                        <%= i + 1%></a></li>
+                                <%}%>
                                 <li>
-                                    <a href="#" aria-label="Next">
+                                    <a href="/users.html?page=<%= currentPage + 1 > totalpage ? totalpage: currentPage + 1 %>&pageSize=<%=pageSize%>"
+                                        aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
                             </ul>
                         </nav>
-
                     </div>
                 </div>
             </div>

@@ -2,11 +2,11 @@
 /* 整个项目都能使用的css */
 body,
 html {
-  height: 100%;
+  height: 95%;
 }
 
 body {
-  background: url(../images/bg.png) no-repeat;
+  background: url(../images/1.jpg) no-repeat;
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
@@ -20,8 +20,8 @@ body {
   margin: 50px auto;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  background: #f2edf3;
+  height: 90%;
+  background: #f2edf346;
   padding-right: 0;
   padding-left: 0;
 }
@@ -31,18 +31,18 @@ body {
   justify-content: space-between;
   align-items: center;
   height: 80px;
-  background: #fff;
+  background: #8f8e8f33;
 }
 .head .logo a {
   font-size: 20px;
-  color: #b66dff;
+  color: #ac60f8cb;
   font-weight: bolder;
   padding-left: 15px;
 }
 .head .right {
   display: flex;
   align-items: center;
-  color: #3e4b5b;
+  color: #fff;
   padding-right: 15px;
 }
 .head .right p {
@@ -56,8 +56,8 @@ body {
 }
 
 .btnSeach {
-  background-color: rgba(172, 50, 228, 0.9);
-  background-image: linear-gradient(to right, #da8cff, #9a55ff);
+  background-color: rgba(172, 50, 228, 0.555);
+  background-image: linear-gradient(to right, #e8bcfd, #b182f7);
   color: #ffffff;
   border: none;
   vertical-align: middle;
@@ -73,7 +73,7 @@ body {
   width: 220px;
   height: 100%;
   overflow-y: auto;
-  background: #fff;
+  background: #8f8e8f33;
 }
 .menu li {
   height: 40px;
@@ -84,10 +84,10 @@ body {
   cursor: pointer;
 }
 .menu li a {
-  color: #3e4b5b;
+  color: #fff;
 }
 .menu li:hover {
-  background: #fcfcfc;
+  background: #fcfcfc8c;
 }
 .menu li:hover a {
   color: #b66dff;
@@ -151,8 +151,8 @@ body {
 .pagination > .active > span,
 .pagination > .active > span:focus,
 .pagination > .active > span:hover {
-  background-color: rgba(172, 50, 228, 0.9);
-  background-image: linear-gradient(to right, #da8cff, #9a55ff);
+  background-color: rgba(172, 50, 228, 0.555);
+  background-image: linear-gradient(to right, #e8bcfd, #b182f7);
   color: #ffffff;
   border: none;
   vertical-align: middle;
@@ -184,5 +184,29 @@ body {
 
 .foot {
   height: 50px;
-  background: #fff;
+  background: #8f8e8f33;
+}
+.foot p {
+  line-height: 50px;
+  color: #fff;
+  margin: 0 auto;
+  width: 700px;
+}
+.foot p span {
+  font-size: 12px;
+}
+
+.body .card-bodys {
+  display: flex;
+  justify-content: space-between;
+  margin: 3%;
+  border-radius: 8px;
+  height: 90%;
+}
+.body .card-bodys img:first-child {
+  width: 500px;
+}
+.body .card-bodys img:last-child {
+  width: 340px;
+  margin-left: 30px;
 }

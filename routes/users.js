@@ -1,9 +1,45 @@
 var express = require('express');
 var router = express.Router();
 var usersModel = require('../model/usersModel.js');
-/* GET users listing. */
+
+
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
 router.get('/', function (req, res, next) {
-  res.send('respond with a resource');
+
+  MongoClient.connect(url, {
+    useNewUrlParser: true
+  }, function (err, client) {
+    if (err) {
+      // 链接数据库失败
+      console.log('链接数据库失败', err);
+      res.render('error', {
+        message: '链接数据库失败',
+        error: err
+      });
+      return;
+    }
+    var db = client.db('node-project');
+
+    db.collection('user').find().toArray(function (err, data) {
+      if (err) {
+        console.log('查询用户数据失败', err);
+        // 有错误，渲染 error.ejs
+        res.render('error', {
+          message: '查询失败',
+          error: err
+        })
+      } else {
+        console.log(data);
+        res.render('users', {
+          list: data
+        });
+      }
+      // 记得关闭数据库的链接
+      client.close();
+    })
+  });
 });
 
 //注册处理
@@ -36,8 +72,6 @@ router.post('/login', function (req, res) {
     }
   })
 })
-
-
 //退出登录
 router.get('/logout', function (req, res) {
   res.clearCookie('username');

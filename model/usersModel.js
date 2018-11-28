@@ -130,9 +130,64 @@ const usersModel = {
                 })
             }
         })
+    },
+
+    getUserList(data, cb) {
+        MongoClient.connect(url, function (err, client) {
+            if (err) {
+                cb({
+                    code: -100,
+                    msg: '连接数据库失败'
+                });
+            } else {
+                var db = client.db('nodeProject');
+                var limitNum = parseInt(data.pageSize);
+                var skipNum = data.page * data.pageSize - data.pageSize;
+                var totalSize = 0;
+                async.parallel([
+                        function (callback) {
+                            db.collection('users').find().count(function (err, num) {
+                                if (err) {
+                                    callback({
+                                        code: -101,
+                                        msg: '查询数据库失败'
+                                    })
+                                } else {
+                                    totalSize = num;
+
+                                    callback(null);
+                                }
+                            })
+                        },
+                        function (callback) {
+                            db.collection('users').find().limit(limitNum).skip(skipNum).toArray(function (err, data) {
+                                if (err) {
+                                    callback({
+                                        code: -101,
+                                        msg: '查询数据库失败'
+                                    })
+                                } else {
+                                    callback(null, data);
+                                }
+                            })
+                        }
+                    ],
+                    function (err, result) {
+                        if (err) {
+                            cb(err);
+                        } else {
+
+                            cb(null, {
+                                totalpage: Math.ceil(totalSize / data.pageSize),
+                                userList: result[1],
+                                page: data.page,
+                                pageSize: data.pageSize
+                            })
+                        }
+                    })
+            }
+        })
     }
-
-
 }
 
 module.exports = usersModel;
