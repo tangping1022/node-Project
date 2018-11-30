@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
     res.render('index', {
       username: req.cookies.username,
       nickname: req.cookies.nickname,
-      isadmin: parseInt(req.cookies.isadmin) ? '(管理员)' : ' '
+      isadmin: parseInt(req.cookies.isadmin) ? '(管理员)' : ''
     });
   } else {
     res.redirect('/login.html');
@@ -22,24 +22,61 @@ router.get('/', function (req, res, next) {
 
 //   res.render('users');
 // })
+//品牌管理
 router.get('/brand.html', function (req, res) {
   if (req.cookies.username && parseInt(req.cookies.isadmin)) {
-    res.render('brand', {
-      username: req.cookies.username,
-      nickname: req.cookies.nickname,
-      isadmin: parseInt(req.cookies.isadmin) ? '(管理员)' : ' '
-    });
+
+    let page = req.query.page || 1; //页码
+    let pageSize = req.query.pageSize || 3; //每页显示条数
+    usersModel.brandList({
+      page: page,
+      pageSize: pageSize
+
+    }, function (err, data) {
+      if (err) {
+        res.render('erro', err);
+      } else {
+        res.render('brand', {
+          username: req.cookies.username,
+          nickname: req.cookies.nickname,
+          isadmin: parseInt(req.cookies.isadmin) ? '(管理员)' : '',
+          brandList: data.brandList,
+          totalpage: data.totalpage,
+          page: data.page,
+          currentPage: data.page,
+          pageSize: data.pageSize
+        });
+      }
+    })
   } else {
     res.redirect('/login.html');
   }
 })
+
+//手机管理
 router.get('/phone.html', function (req, res) {
   if (req.cookies.username && parseInt(req.cookies.isadmin)) {
-    res.render('phone', {
-      username: req.cookies.username,
-      nickname: req.cookies.nickname,
-      isadmin: parseInt(req.cookies.isadmin) ? '(管理员)' : ' '
-    });
+    let page = req.query.page || 1; //页码
+    let pageSize = req.query.pageSize || 2; //每页显示条数
+    usersModel.phoneList({
+      page: page,
+      pageSize: pageSize
+    }, function (err, data) {
+      if (err) {
+        res.render('error', err);
+      } else {
+        res.render('phone', {
+          username: req.cookies.username,
+          nickname: req.cookies.nickname,
+          isadmin: parseInt(req.cookies.isadmin) ? '(管理员)' : '',
+          phoneList: data.phoneList,
+          totalpage: data.totalpage,
+          page: data.page,
+          currentPage: data.page,
+          pageSize: data.pageSize
+        });
+      }
+    })
   } else {
     res.redirect('/login.html');
   }
@@ -93,9 +130,6 @@ router.get('/users.html', function (req, res) {
     res.redirect('/login.html');
   }
 })
-
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/";
 
 
 

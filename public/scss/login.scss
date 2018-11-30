@@ -40,7 +40,7 @@ body {
         }
 
         .adminStrat {
-            margin-left: 56px;
+            margin-left: -4px;
             line-height: 70px;
         }
 
@@ -55,7 +55,7 @@ body {
     text-align: left;
     outline: none;
     font-size: 12px;
-    background: url(../images/lock.png) no-repeat 440px 10px;
+    background: url() no-repeat 440px 10px;
     margin-top: 4%;
     // font-weight: 300;
     font-family: 'Muli', sans-serif;
@@ -70,7 +70,7 @@ body {
     text-align: left;
     outline: none;
     font-size: 12px;
-    background: url(../images/lock.png) no-repeat 440px 10px;
+    background: url() no-repeat 440px 10px;
     margin-top: 6%;
     // font-weight: 300;
     font-family: 'Muli', sans-serif;
@@ -85,7 +85,7 @@ body {
     text-align: left;
     outline: none;
     font-size: 18px;
-    background: url(../images/lock.png) no-repeat 440px 10px;
+    background: url() no-repeat 440px 10px;
     margin-top: 6%;
     font-weight: 300;
     font-family: 'Muli', sans-serif;
@@ -110,4 +110,10 @@ body {
     text-transform: uppercase;
     border-radius: 4px;
     -webkit-transition: all 0.5s ease-in-out;
+}
+
+.form_user {
+    color: red;
+    display: none;
+    font-size: 12px;
 }

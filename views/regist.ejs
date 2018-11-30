@@ -6,32 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>用户注册</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="shortcut icon" href="/images/favicon.ico">
 </head>
 
 <body>
 
-    <div class="content" style="margin-top: 1%;">
-        <h2> 用户注册</h2>
+    <div class="content" style="margin-top: 1%;   width: 30%; padding-left: 2%; text-align: left;">
+        <h2 style="margin-left:-57px;"> 用户注册</h2>
         <form action="/users/regist" method="post">
             用户名： <input type="text" class="username" name="username" placeholder="请输入用户名">
+            <span id="info_user" class="form_user">请输入用户名</span>
+            <span id="error_user" class="form_user">2~10位，字母</span>
             <br>
             密&emsp;码： <input type="password" class="password" name="pwd" placeholder="请输入密码">
+            <span id="info_pwd" class="form_user">请输入密码</span>
+
             <br>
             确认密码：<input type="password" class="passwordend" name="pwdend" placeholder="请再次输入密码">
+            <span id="info_pwdend" class="form_user">请输入确认密码</span>
+            <span id="info_pwdend1" class="form_user">两次密码输入不一致</span>
             <br>
             昵&emsp;称： <input type="text" class="nickname" name="nickname" placeholder="昵称">
+            <span id="info_nickname" class="form_user">请输入昵称</span>
             <br>
             年&emsp;龄： <input type="text" class="age" name="age" placeholder="请输入年龄">
+            <span id="info_age" class="form_user">请输入年龄</span>
+            <span id="info_age1" class="form_user">1~120之间的数字</span>
             <div class="adminStrat">
-                性&emsp;别 ：<input type="radio" class="age" name="sex" value="男"> 男
+                性&emsp;别 ：<input type="radio" class="age" name="sex" value="男" checked="checked"> 男
                 <input type="radio" class="age" name="sex" value="女"> 女
                 &emsp;
-                是否是管理员：<input type="radio" value="1" name="isadmin">yes <input type="radio" name="isadmin" value="0">no
+                是否是管理员：<input type="radio" value="1" name="isadmin">yes <input type="radio" name="isadmin" value="0"
+                    checked="checked">no
             </div>
             <div class="button-row">
-                <input type="submit" class="sign-in" value="注册">
+                <input type="submit" style="margin-left:57px;" class="sign-in" value="注册">
             </div>
             <a href="/login.html" class="clear" style="float: right;color: #fff; padding-right: 20px;">登录</a>
         </form>
@@ -41,35 +52,91 @@
 </html>
 
 <script src="js/jquery.min.js"></script>
-<!-- <script>
-    $(".sign-in").click(function () {
-        var username = $(".username").val();
-        // var phone = $(".phone").val();
-        var password = $(".password").val();
-        if (username == "USERNAME") {
-            alert("请输入用户名！");
-        } else if (password == "PASSWORD") {
-            alert("请输入密码！");
-        }
-        var data = {
-            "uname": username,
-            "upwd": password
-        }
-        $.ajax({
-            url: 'regist',
-            type: 'post',
-            contentType: "application/json; charset=UTF-8",
-            data: data,
-            success: function (data, status) {
-                location.href = "login";
-                // console.log(status);
-                // if (status == "status") {
-
-                // }
-            },
-            error: function (data, err) {
-                location.href = "regist.html";
-            }
-        })
+<script>
+    var sormSub = false;
+    var unamReg = /^[a-z]{3,10}$/;
+    var ageReg = /^(?:[1-9][0-9]?|1[01][0-9]|120)$/;
+    var username = $(".username");
+    var password = $(".password");
+    var passwordend = $(".passwordend");
+    var nickname = $(".nickname");
+    var age = $(".age");
+    //-------------用户名验证-------------
+    username.focus(function () {
+        $("#info_user").show();
+        $("#error_user").hide();
     })
-</script> -->
+    username.blur(function () {
+        //隐藏验证提示信息
+        $("#info_user").hide();
+        //检测用户名是否合法
+        if (unamReg.test(this.value)) { //用户名合法
+            sormSub = true;
+        } else { //用户名不合法
+            //显示不合法的提示信息
+            $("#error_user").show();
+            sormSub = false;
+        }
+    })
+    //-------------密码验证-----------------
+    password.focus(function () {
+        $("#info_pwd").show();
+        sormSub = false;
+    })
+    password.blur(function () {
+        $("#info_pwd").hide();
+        sormSub = true;
+
+    })
+
+    // -----------------确认密码--------------------
+    passwordend.focus(function () {
+        $("#info_pwdend").show();
+        $("#info_pwdend1").hide();
+    })
+    passwordend.blur(function () {
+        $("#info_pwdend").hide();
+        if ($(".password").val() == $(".passwordend").val()) {
+            $("#info_pwdend").hide();
+            $("#info_pwdend1").hide();
+            sormSub = true;
+        } else {
+            $("#info_pwdend1").show();
+            sormSub = false;
+        }
+    })
+    // -----------------昵称--------------------
+    nickname.focus(function () {
+        $("#info_nickname").show();
+        sormSub = false;
+    })
+    nickname.blur(function () {
+        $("#info_nickname").hide();
+        sormSub = true;
+    })
+    // -----------------昵称--------------------
+    age.focus(function () {
+        $("#info_age").show();
+        $("#info_age1").hide();
+    })
+    age.blur(function () {
+        $("#info_age").hide();
+
+        if (ageReg.test(this.value)) { //年龄合法
+            $("#info_age").hide();
+            $("#info_age1").hide();
+            sormSub = true;
+        } else {
+            $("#info_age1").show();
+            sormSub = false;
+        }
+
+    })
+    $(".sign-in").click(function () {
+        if (sormSub) {
+            return true;
+        } else {
+            return false;
+        }
+    })
+</script>

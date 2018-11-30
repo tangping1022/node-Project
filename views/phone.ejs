@@ -5,10 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>xxx后台管理系统</title>
+    <title>信息后台管理系统</title>
     <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/common.css">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <style>
+        .active2{background: #fcfcfc8c; }
+        .active2 .a2{color: #b66dff;}
+    </style>
 </head>
 
 <body>
@@ -22,134 +27,129 @@
 
                     <div class="card-body">
 
+                        <div class="btnAdd">
 
-                        <form class="form-inline">
-                            <input type="text" class="form-control">
-                            <button class="btn  btnSeach">搜索</button>
-                        </form>
+                            <button id="btnAdds" class="btn  btnSeach">新增手机</button>
+
+
+                            <div class="loginAdd">
+                                <h2>新增</h2>
+                                <form action="/users/addPhone" method="POST" enctype="multipart/form-data" class="form-inline addForm">
+                                    名&emsp;&emsp;&emsp;称： <input type="text" name="phoneName" placeholder="请输入手机名称"
+                                        class="form-control"><br><br>
+                                    品&emsp;&emsp;&emsp;牌：<select class="form-control form-select" name="brand" style="width:210px;">
+
+                                    </select><br><br>
+                                    官方指导价：<input type="text" name="guided" placeholder="请输入官方指导价" class="form-control"><br><br>
+                                    二手回收价：<input type="text" name="price" placeholder="请输入二手回收价" class="form-control"><br><br>
+                                    图&emsp;&emsp;&emsp;片： <input type="file" name="file" class="form-file"><br><br>
+                                    &emsp;&emsp;&emsp;&emsp; <button type="submit" class="btn  btnSeach btncle">确定</button>&emsp;&emsp;<button
+                                        id="btnClose" type="button" class="btn  btnSeach btncle">取消</button>
+                                </form>
+
+                            </div>
+
+
+                            <div class="loginUpdate">
+                                <h2>修改</h2>
+                                <form action="/users/UpdatePhone" method="POST" enctype="multipart/form-data" class="form-inline addForm">
+                                    <input type="hidden" class="pId" name="id">
+                                    名&emsp;&emsp;&emsp;称： <input type="text" name="phoneName" placeholder="请输入手机名称"
+                                        class="form-control phoneName"><br><br>
+                                    品&emsp;&emsp;&emsp;牌：<select id="brand" class="form-control form-select" name="brand"
+                                        style="width:210px;">
+                                        <option value="1">苹果</option>
+                                        <option value="2">小米</option>
+                                        <option value="3">三星</option>
+                                        <option value="4">华为</option>
+                                        <option value="5">魅族</option>
+                                    </select><br><br>
+                                    官方指导价：<input type="text" name="guided" placeholder="请输入官方指导价" class="form-control guided"><br><br>
+                                    二手回收价：<input type="text" name="price" placeholder="请输入二手回收价" class="form-control price"><br><br>
+                                    图&emsp;&emsp;&emsp;片： <input type="file" name="file" class="form-file"><br><br>
+                                    &emsp;&emsp;&emsp;&emsp; <button type="submit" class="btn  btnSeach btncle">确定</button>&emsp;&emsp;<button
+                                        id="btnCloseUpdate" type="button" class="btn  btnSeach btncle">取消</button>
+                                </form>
+
+                            </div>
+                        </div>
 
                         <table class="table  ">
                             <thead class="theadTitle">
                                 <tr>
                                     <th>
-                                        #
+                                        序号
                                     </th>
                                     <th>
-                                        First name
+                                        图片
                                     </th>
                                     <th>
-                                        Product
+                                        手机名称
                                     </th>
                                     <th>
-                                        Amount
+                                        所属品牌
                                     </th>
                                     <th>
-                                        Deadline
+                                        官方指导价
+                                    </th>
+                                    <th>
+                                        二手回收价
+                                    </th>
+                                    <th>
+                                        操作
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="table-info">
-                                    <td>
-                                        1
+                                <% for(var i=0;i< phoneList.length;i++){%>
+                                <tr>
+                                    <td class="id" style="display:none">
+                                        <%= phoneList[i]._id%>
                                     </td>
                                     <td>
-                                        Herman Beck
+                                        <%= i+1%>
                                     </td>
                                     <td>
-                                        Photoshop
+                                        <img src="<%= phoneList[i].filename%>" style="width: 50px;">
+                                    </td>
+                                    <td class="pName">
+                                        <%= phoneList[i].phoneName%>
+                                    </td>
+                                    <td class="pBrand">
+                                        <%= phoneList[i].brand%>
+
+                                    </td>
+                                    <td class="pGuided">
+                                        <%= phoneList[i].guided%>
+
+                                    </td>
+                                    <td class="pPrice">
+                                        <%= phoneList[i].price%>
                                     </td>
                                     <td>
-                                        $ 77.99
-                                    </td>
-                                    <td>
-                                        May 15, 2015
-                                    </td>
-                                </tr>
-                                <tr class="table-warning">
-                                    <td>
-                                        2
-                                    </td>
-                                    <td>
-                                        Messsy Adam
-                                    </td>
-                                    <td>
-                                        Flash
-                                    </td>
-                                    <td>
-                                        $245.30
-                                    </td>
-                                    <td>
-                                        July 1, 2015
+                                        <a href="javascript:void(0)" class="btnPhoneUp" style='color:#3e4b5b' onclick="btnUpdate(this)">修改</a>&emsp;
+                                        <a href="/users/phoneDel?id=<%= phoneList[i]._id %>" style='color:#3e4b5b'>删除</a>
                                     </td>
                                 </tr>
-                                <tr class="table-danger">
-                                    <td>
-                                        3
-                                    </td>
-                                    <td>
-                                        John Richards
-                                    </td>
-                                    <td>
-                                        Premeire
-                                    </td>
-                                    <td>
-                                        $138.00
-                                    </td>
-                                    <td>
-                                        Apr 12, 2015
-                                    </td>
-                                </tr>
-                                <tr class="table-success">
-                                    <td>
-                                        4
-                                    </td>
-                                    <td>
-                                        Peter Meggik
-                                    </td>
-                                    <td>
-                                        After effects
-                                    </td>
-                                    <td>
-                                        $ 77.99
-                                    </td>
-                                    <td>
-                                        May 15, 2015
-                                    </td>
-                                </tr>
-                                <tr class="table-primary">
-                                    <td>
-                                        5
-                                    </td>
-                                    <td>
-                                        Edward
-                                    </td>
-                                    <td>
-                                        Illustrator
-                                    </td>
-                                    <td>
-                                        $ 160.25
-                                    </td>
-                                    <td>
-                                        May 03, 2015
-                                    </td>
-                                </tr>
+                                <%}%>
+
                             </tbody>
                         </table>
                         <nav>
                             <ul class="pagination">
                                 <li>
-                                    <a href="#" aria-label="Previous">
+                                    <a href="/phone.html?page=<%= currentPage-1 < 1 ? 1: currentPage -1 %>&pageSize=<%= pageSize%>"
+                                        aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
+                                <% for(var i=0; i < totalpage; i++) { %>
+                                <li class="<%= currentPage == (i+1) ? 'active': '' %>"><a href="/phone.html?page=<%=i+1%>&pageSize=<%= pageSize %>">
+                                        <%= i + 1%></a></li>
+                                <%}%>
                                 <li>
-                                    <a href="#" aria-label="Next">
+                                    <a href="/phone.html?page=<%= currentPage + 1 > totalpage ? totalpage: currentPage + 1 %>&pageSize=<%=pageSize%>"
+                                        aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
@@ -167,3 +167,54 @@
 </body>
 
 </html>
+<script src="js/jquery.min.js"></script>
+<script>
+    $("#btnAdds").click(function () {
+        $(".loginAdd").show();
+    })
+
+    function btnUpdate(i) {
+        var id = $(i).parent().parent().find(".id").html().trim();
+        var pName = $(i).parent().parent().find(".pName").html().trim();
+        var pBrand = $(i).parent().parent().find(".pBrand").html().trim();
+        var pGuided = $(i).parent().parent().find(".pGuided").html().trim();
+        var pPrice = $(i).parent().parent().find(".pPrice").html().trim();
+        $(".phoneName").val(pName);
+        if (pBrand == "苹果") {
+            pBrand = 1
+        } else if (pBrand == "小米") {
+            pBrand = 2
+        } else if (pBrand == "三星") {
+            pBrand = 3
+        } else if (pBrand == "华为") {
+            pBrand = 4
+        } else if (pBrand == "魅族") {
+            pBrand = 5
+        }
+        $("#brand option[value=" + pBrand + "]").attr("selected", true);
+
+        $(".guided").val(pGuided);
+        $(".price").val(pPrice);
+        $(".pId").val(id);
+        $(".loginUpdate").show();
+    }
+
+    $("#btnClose").click(function () {
+        $(".loginAdd").hide();
+    })
+    $("#btnCloseUpdate").click(function () {
+        $(".loginUpdate").hide();
+    })
+
+    // select 下拉框取值
+    $(function () {
+        $.get("/users/getSelect", function (res) {
+            var str = "";
+            var list = res.list;
+            for (var i = 0; i < list.length; i++) {
+                str += "<option value=\"" + list[i].bId + "\" >" + list[i].brandName + "</option>";
+            }
+            $(".form-select").html(str);
+        })
+    })
+</script>

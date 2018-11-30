@@ -24,6 +24,7 @@ body {
   background: #f2edf346;
   padding-right: 0;
   padding-left: 0;
+  border-radius: 20px;
 }
 
 .head {
@@ -31,6 +32,8 @@ body {
   justify-content: space-between;
   align-items: center;
   height: 80px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   background: #8f8e8f33;
 }
 .head .logo a {
@@ -86,12 +89,6 @@ body {
 .menu li a {
   color: #fff;
 }
-.menu li:hover {
-  background: #fcfcfc8c;
-}
-.menu li:hover a {
-  color: #b66dff;
-}
 
 .form-inline {
   margin: 10px 0;
@@ -126,6 +123,7 @@ body {
 .table > thead > tr > td,
 .table > thead > tr > th {
   border: none;
+  vertical-align: middle;
 }
 
 .table tbody tr:nth-of-type(odd) {
@@ -185,6 +183,8 @@ body {
 .foot {
   height: 50px;
   background: #8f8e8f33;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 .foot p {
   line-height: 50px;
@@ -209,4 +209,140 @@ body {
 .body .card-bodys img:last-child {
   width: 340px;
   margin-left: 30px;
+}
+
+.btnAdd {
+  padding: 10px 0;
+  position: relative;
+}
+
+.addForm {
+  position: relative;
+  color: #909090;
+  margin-left: 80px;
+}
+.addForm input[type="text"] {
+  width: 50%;
+  border: 1px solid #fff;
+  color: #909090;
+  text-align: left;
+  outline: none;
+  font-size: 14px;
+  background: url(../images/lock.png) no-repeat 440px 10px;
+}
+
+.form-file {
+  position: absolute;
+  bottom: 55px;
+  left: 96px;
+}
+
+.loginAdd {
+  display: none;
+  width: 500px;
+  height: 380px;
+  background: url(../images/1.jpg) no-repeat;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  z-index: 10;
+  position: absolute;
+  top: -21px;
+  left: 184px;
+}
+.loginAdd h2 {
+  font-size: 30px;
+  padding: 20px 0 0;
+  color: #909090;
+  font-weight: 300;
+  font-family: 'Nunito', sans-serif;
+  text-align: center;
+}
+
+.btncle {
+  margin-top: 15px;
+}
+
+.form-select {
+  border: 1px solid #fff;
+  color: #909090;
+  text-align: left;
+  background: url(../images/lock.png) no-repeat 440px 10px;
+}
+
+.form-select option {
+  -webkit-appearance: none;
+  background: rgba(194, 193, 193, 0.356);
+}
+
+.loginUpdate {
+  display: none;
+  width: 500px;
+  height: 380px;
+  background: url(../images/1.jpg) no-repeat;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  z-index: 10;
+  position: absolute;
+  top: -21px;
+  left: 184px;
+}
+.loginUpdate h2 {
+  font-size: 30px;
+  padding: 20px 0 0;
+  color: #909090;
+  font-weight: 300;
+  font-family: 'Nunito', sans-serif;
+  text-align: center;
+}
+
+.logAdd {
+  display: none;
+  width: 500px;
+  height: 300px;
+  background: url(../images/1.jpg) no-repeat;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  z-index: 10;
+  position: absolute;
+  top: -21px;
+  left: 184px;
+}
+.logAdd h2 {
+  font-size: 30px;
+  padding: 20px 0 0;
+  color: #909090;
+  font-weight: 300;
+  font-family: 'Nunito', sans-serif;
+  text-align: center;
+}
+.logAdd .form-file {
+  position: absolute;
+  bottom: 125px;
+  left: 96px;
+}
+
+.logUpdate {
+  display: none;
+  width: 500px;
+  height: 300px;
+  background: url(../images/1.jpg) no-repeat;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  z-index: 10;
+  position: absolute;
+  top: -21px;
+  left: 184px;
+}
+.logUpdate h2 {
+  font-size: 30px;
+  padding: 20px 0 0;
+  color: #909090;
+  font-weight: 300;
+  font-family: 'Nunito', sans-serif;
+  text-align: center;
+}
+.logUpdate .form-file {
+  position: absolute;
+  bottom: 125px;
+  left: 96px;
 }

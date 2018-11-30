@@ -1,3 +1,70 @@
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>信息后台管理系统</title>
+    <style>
+        html,
+        body {
+            height: 90%;
+        }
+
+        body {
+            background: url(../images/1.jpg) no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            font-family: 'Muli', sans-serif;
+        }
+
+        .container {
+            width: 20%;
+            margin: 0 auto;
+            margin-top: 110px;
+            display: flex;
+            flex-direction: column;
+            height: 50%;
+            padding-right: 0;
+            padding-left: 0;
+            background: url(../images/dh.jpg) no-repeat;
+            position: relative;
+        }
+
+        .err {
+            width: 122px;
+            height: 83px;
+            background: #fff;
+            position: absolute;
+            left: 95px;
+            top: 64px;
+            border-radius: 50%;
+        }
+
+        span {
+            font-weight: bolder;
+            line-height: 80px;
+            font-size: 15px;
+        }
+    </style>
+    <link rel="shortcut icon" href="/images/favicon.ico">
+</head>
+
+<body>
+    <div class="container">
+        <div class="err">
+
+            <span>
+                <%= msg %>
+            </span>
+
+        </div>
+    </div>
+</body>
+
+</html>

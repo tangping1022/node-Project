@@ -1,8 +1,15 @@
 <ul class="menu">
 
     <% if(isadmin=="(管理员)"){ %>
-    <li><a href="/users.html">用户管理</a> </li>
+    <li class="active"><a href="/users.html" class="a">用户管理</a> </li>
     <% } %>
-    <li><a href="/brand.html">品牌管理</a></li>
-    <li><a href="/phone.html">手机管理</a> </li>
+    <li class="active1"><a href="/brand.html" class="a1">品牌管理</a></li>
+    <li class="active2"><a href="/phone.html" class="a2">手机管理</a> </li>
 </ul>
+
+<script src="js/jquery.min.js"></script>
+<script>
+    // $(".menu li").click(function () {
+    //     $(this).addClass("active").siblings().removeClass("active");
+    // })
+</script>

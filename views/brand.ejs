@@ -5,10 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>xxx后台管理系统</title>
+    <title>信息后台管理系统</title>
     <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/common.css">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <style>
+        .active1{background: #fcfcfc8c;}
+        .active1 .a1{color: #b66dff;}
+    </style>
 </head>
 
 <body>
@@ -17,140 +22,99 @@
         <%- include('./common/head.ejs',{nickname:nickname,isadmin:isadmin})%>
         <div class="main">
             <%- include('./common/menu.ejs')%>
+
+
             <div class="body">
                 <div class="card">
 
                     <div class="card-body">
 
+                        <div class="btnAdd">
 
-                        <form class="form-inline">
-                            <input type="text" class="form-control">
-                            <button class="btn  btnSeach">搜索</button>
-                        </form>
+                            <button id="btnAdds" class="btn  btnSeach">新增品牌</button>
+
+
+                            <div class="logAdd">
+                                <h2>新增</h2>
+                                <form action="/users/addBrand" method="POST" enctype="multipart/form-data" class="form-inline addForm">
+                                    品牌LOGO： <input type="file" name="file" class="form-file"><br><br><br>
+                                    品&nbsp;牌&nbsp;名&nbsp;称：<input type="text" name="brandName" placeholder="请输入品牌名称"
+                                        class="form-control"><br><br>
+
+                                    &emsp;&emsp;&emsp;&emsp; <button type="submit" class="btn  btnSeach btncle">确定</button>&emsp;&emsp;<button
+                                        id="btnClose" type="button" class="btn  btnSeach btncle">取消</button>
+                                </form>
+                            </div>
+                            <div class="logUpdate">
+                                <h2>修改</h2>
+                                <form action="/users/UpdateBrand" method="POST" enctype="multipart/form-data" class="form-inline addForm">
+                                    <input type="hidden" class="bId" name="id">
+                                    品牌LOGO： <input type="file" name="file" class="form-file"><br><br><br>
+                                    品&nbsp;牌&nbsp;名&nbsp;称：<input type="text" name="brandName" placeholder="请输入品牌名称"
+                                        class="form-control brandName"><br><br>
+                                    &emsp;&emsp;&emsp;&emsp; <button type="submit" class="btn  btnSeach btncle">确定</button>&emsp;&emsp;<button
+                                        id="btnCloseUpdate" type="button" class="btn  btnSeach btncle">取消</button>
+                                </form>
+
+                            </div>
+                        </div>
 
                         <table class="table  ">
                             <thead class="theadTitle">
                                 <tr>
                                     <th>
-                                        #
+                                        序号
                                     </th>
                                     <th>
-                                        First name
+                                        品牌LOGO
                                     </th>
                                     <th>
-                                        Product
+                                        品牌名称
                                     </th>
                                     <th>
-                                        Amount
-                                    </th>
-                                    <th>
-                                        Deadline
+                                        操作
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="table-info">
-                                    <td>
-                                        1
+                                <% for(var i=0;i< brandList.length;i++){%>
+                                <tr>
+                                    <td class="id" style="display:none">
+                                        <%= brandList[i]._id%>
                                     </td>
                                     <td>
-                                        Herman Beck
+                                        <%= i+1%>
                                     </td>
                                     <td>
-                                        Photoshop
+                                        <img src="<%= brandList[i].filename%>" style="width: 30px;">
+                                    </td>
+                                    <td class="bName">
+                                        <%= brandList[i].brandName%>
                                     </td>
                                     <td>
-                                        $ 77.99
-                                    </td>
-                                    <td>
-                                        May 15, 2015
-                                    </td>
-                                </tr>
-                                <tr class="table-warning">
-                                    <td>
-                                        2
-                                    </td>
-                                    <td>
-                                        Messsy Adam
-                                    </td>
-                                    <td>
-                                        Flash
-                                    </td>
-                                    <td>
-                                        $245.30
-                                    </td>
-                                    <td>
-                                        July 1, 2015
+                                        <a href="javascript:void(0)" class="btnPhoneUp" style='color:#3e4b5b' onclick="btnUpdate(this)">修改</a>&emsp;
+                                        <a href="/users/brandDel?id=<%= brandList[i]._id %>" style='color:#3e4b5b'>删除</a>
                                     </td>
                                 </tr>
-                                <tr class="table-danger">
-                                    <td>
-                                        3
-                                    </td>
-                                    <td>
-                                        John Richards
-                                    </td>
-                                    <td>
-                                        Premeire
-                                    </td>
-                                    <td>
-                                        $138.00
-                                    </td>
-                                    <td>
-                                        Apr 12, 2015
-                                    </td>
-                                </tr>
-                                <tr class="table-success">
-                                    <td>
-                                        4
-                                    </td>
-                                    <td>
-                                        Peter Meggik
-                                    </td>
-                                    <td>
-                                        After effects
-                                    </td>
-                                    <td>
-                                        $ 77.99
-                                    </td>
-                                    <td>
-                                        May 15, 2015
-                                    </td>
-                                </tr>
-                                <tr class="table-primary">
-                                    <td>
-                                        5
-                                    </td>
-                                    <td>
-                                        Edward
-                                    </td>
-                                    <td>
-                                        Illustrator
-                                    </td>
-                                    <td>
-                                        $ 160.25
-                                    </td>
-                                    <td>
-                                        May 03, 2015
-                                    </td>
-                                </tr>
+                                <%}%>
+
                             </tbody>
                         </table>
-
                         <nav>
                             <ul class="pagination">
                                 <li>
-                                    <a href="#" aria-label="Previous">
+                                    <a href="/brand.html?page=<%= currentPage-1 < 1 ? 1: currentPage -1 %>&pageSize=<%= pageSize%>"
+                                        aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
+                                <% for(var i=0; i < totalpage; i++) { %>
+                                <li class="<%= currentPage == (i+1) ? 'active': '' %>"><a href="/brand.html?page=<%=i+1%>&pageSize=<%= pageSize %>">
+                                        <%= i + 1%></a></li>
+                                <%}%>
                                 <li>
-                                    <a href="#" aria-label="Next">
+                                    <a href="/brand.html?page=<%= currentPage + 1 > totalpage ? totalpage: currentPage + 1 %>&pageSize=<%=pageSize%>"
+                                        aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
@@ -161,6 +125,14 @@
                 </div>
             </div>
 
+
+
+
+
+
+
+
+
         </div>
         <%- include('./common/foot.ejs')%>
 
@@ -168,3 +140,24 @@
 </body>
 
 </html>
+<script src="js/jquery.min.js"></script>
+<script>
+    $("#btnAdds").click(function () {
+        $(".logAdd").show();
+    })
+
+    function btnUpdate(i) {
+        var id = $(i).parent().parent().find(".id").html().trim();
+        var brandName = $(i).parent().parent().find(".bName").html().trim();
+        $(".brandName").val(brandName);
+        $(".bId").val(id);
+        $(".logUpdate").show();
+    }
+
+    $("#btnClose").click(function () {
+        $(".logAdd").hide();
+    })
+    $("#btnCloseUpdate").click(function () {
+        $(".logUpdate").hide();
+    })
+</script>

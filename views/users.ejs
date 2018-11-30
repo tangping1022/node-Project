@@ -5,10 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>xxx后台管理系统</title>
+    <title>信息后台管理系统</title>
     <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <style>
+        .active{background: #fcfcfc8c;}
+        .active .a{color: #b66dff;}
+    </style>
 </head>
 
 <body>
@@ -22,17 +27,17 @@
 
                     <div class="card-body">
 
+                        <div style="display:flex; padding-top: 5px;">
 
-                        <form class="form-inline">
-                            <input type="text" class="form-control">
-                            <button class="btn  btnSeach">搜索</button>
-                        </form>
-
+                            <input type="text" class="form-control" style="width:200px; height: 35px; margin-right:5px;"
+                                placeholder="请输入昵称查询">
+                            <button id="btnSeach" class="btn  btnSeach">搜索</button>
+                        </div>
                         <table class="table  ">
                             <thead class="theadTitle">
                                 <tr>
                                     <th>
-                                        #
+                                        序号
                                     </th>
                                     <th>
                                         用户名
@@ -55,7 +60,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <% for(var i=0;i<userList.length;i++){ %>
+                                <% for(var i=0;i< userList.length;i++){ %>
                                 <tr>
                                     <td>
                                         <%= i+1 %>
@@ -67,24 +72,17 @@
                                         <%= userList[i].nickname%>
                                     </td>
                                     <td>
-                                        <%= i+1 %>
+                                        <%= userList[i].age%>
                                     </td>
                                     <td>
-                                        <%= i+1 %>
+                                        <%= userList[i].sex%>
                                     </td>
                                     <td>
                                         <%= parseInt(userList[i].isadmin)?'是':'否' %>
                                     </td>
                                     <td>
-                                        <% if(userList[i].username===username){%>
-
-                                        <a href="#" style='color:#3e4b5b'>修改</a>
-
-                                        <%}else if(parseInt(userList[i].isadmin)) {%>
-
-                                        <% } else{%>
-                                        <a href="#" style='color:#3e4b5b'>修改</a>&emsp;
-                                        <a href="/users/delete" style='color:#3e4b5b'>删除</a>
+                                        <% if(!parseInt(userList[i].isadmin)) {%>
+                                        <a href="/users/delete?id=<%= userList[i]._id %>" style='color:#3e4b5b'>删除</a>
                                         <% }%>
                                     </td>
                                 </tr>
@@ -99,10 +97,13 @@
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
+
                                 <% for(var i=0; i < totalpage; i++) { %>
-                                <li class="<%= currentPage == (i+1) ? 'active': '' %>"><a href="/users.html?page=<%=i+1%>&pageSize=<%= pageSize %>">
+                                <li class="<%= currentPage == (i+1) ? 'active': '' %> ejsTato"><a href="/users.html?page=<%=i+1%>&pageSize=<%= pageSize %>">
                                         <%= i + 1%></a></li>
                                 <%}%>
+
+                                <li class="jsTato" style="display:none"><a href="/users.html?page=<%=i+1%>&pageSize=<%= pageSize %>"></a></li>
                                 <li>
                                     <a href="/users.html?page=<%= currentPage + 1 > totalpage ? totalpage: currentPage + 1 %>&pageSize=<%=pageSize%>"
                                         aria-label="Next">
@@ -122,3 +123,70 @@
 </body>
 
 </html>
+<script src="/js/jquery.min.js"></script>
+<script>
+    $("#btnSeach").click(function () {
+        var nickname = $('.form-control').val();
+        if (nickname !== "") {
+            $(".ejsTato").hide();
+            $(".jsTato").show();
+        } else {
+            $(".ejsTato").show();
+            $(".jsTato").hide();
+        }
+        $.get("/users/seach", {
+            name: nickname
+        }, function (res) {
+            if (res.code == 0) {
+                var str = "";
+                var total = "";
+                var list = res.userList;
+                var currentPage = "";
+                for (var i = 0; i < list.length; i++) {
+                    str +=
+                        `
+                    <tr>
+                                    <td>
+                                           ${ i+1}
+                                    </td>
+                                    <td>
+                                           ${ list[i].username}
+                                    </td>
+                                    <td>
+                                            ${list[i].nickname}
+                                    </td>
+                                    <td>
+                                            ${ i+1}
+                                    </td>
+                                    <td>
+                                            ${ i+1}
+                                    </td>
+                                    <td>
+                                        ${parseInt(list[i].isadmin)?'是':'否'}
+                                        
+                                    </td>
+                                    <td>
+                                    ${!parseInt(list[i].isadmin)? "<a href='/users/delete?id="+list[i]._id+">' style='color:#3e4b5b'>删除</a>":''}
+                                    
+                                    </td>
+                                </tr>
+                    `
+                }
+
+                $("tbody").html(str);
+
+                for (var j = 0; j < res.totalpage; j++) {
+
+                    total +=
+                        `<a href="/users.html?page=<%=i+1%>&pageSize=<%= pageSize %>">
+                        ${j+1}</a>`;
+                    currentPage += res.currentPage == (j + 1) ? 'active' : ''
+                }
+                $(".jsTato").html(total);
+                $(".jsTato").addClass(currentPage);
+            } else {
+                alert('失败')
+            }
+        })
+    })
+</script>
