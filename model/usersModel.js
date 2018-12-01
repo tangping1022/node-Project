@@ -585,37 +585,50 @@ const usersModel = {
                 });
 
             } else {
-                const db = cliect.db('nodeProject');
-                db.collection('brand').find().count(function (err, num) {
-                    if (err) {
-                        callback({
-                            code: -101,
-                            msg: "查询表的所有记录条数失败"
-                        })
-                    } else {
-                        var bId = num + 1;
-                        db.collection('brand').insertOne({
-                            brandName: data.brandName,
-                            filename: data.filename,
-                            bId: bId,
-                            date: new Date().getTime()
-                        }, function (err) {
-                            if (err) {
-                                cb({
-                                    code: -100,
-                                    msg: '删除失败'
-                                });
-                            } else {
-                                cb(null, {
-                                    code: 0
-                                })
-                            }
-                            cliect.close();
-                        })
-                    }
-                })
+                if (data.filename == undefined) {
+                    const db = cliect.db('nodeProject');
+                    var bId = num + 1;
+                    db.collection('brand').insertOne({
+                        brandName: data.brandName,
+                        bValue: data.brandName,
+                        date: new Date().getTime()
+                    }, function (err) {
+                        if (err) {
+                            cb({
+                                code: -100,
+                                msg: '新增失败'
+                            });
+                        } else {
+                            cb(null, {
+                                code: 0
+                            })
+                        }
+                        cliect.close();
+                    })
+                } else {
+                    const db = cliect.db('nodeProject');
+                    db.collection('brand').insertOne({
+                        brandName: data.brandName,
+                        filename: data.filename,
+                        bValue: data.brandName,
+                        date: new Date().getTime()
+                    }, function (err) {
+                        if (err) {
+                            cb({
+                                code: -100,
+                                msg: '新增失败'
+                            });
+                        } else {
+                            cb(null, {
+                                code: 0
+                            })
+                        }
+                        cliect.close();
+                    })
+                }
             }
         })
+
     },
 
     /**
@@ -679,6 +692,7 @@ const usersModel = {
                         }
                     })
             }
+
         })
     },
     /**

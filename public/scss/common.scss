@@ -264,7 +264,7 @@ body {
         text-align: left;
         outline: none;
         font-size: 14px;
-        background: url(../images/lock.png) no-repeat 440px 10px;
+        background: url() no-repeat 440px 10px;
     }
 }
 
@@ -309,12 +309,11 @@ body {
     border: 1px solid #fff;
     color: rgb(144, 144, 144);
     text-align: left;
-    background: url(../images/lock.png) no-repeat 440px 10px;
+    background: url() no-repeat 440px 10px;
 }
 
 .form-select option {
     -webkit-appearance: none;
-    // background: url(../images/lock.png) no-repeat 440px 10px;
     background: rgba(194, 193, 193, 0.356);
 }
 

@@ -28,13 +28,13 @@ router.post('/login', function (req, res) {
       res.render('error', err);
     } else {
       res.cookie('username', data.username, {
-        maxAge: 1000 * 60 * 1000
+        maxAge: 1000 * 60 * 10
       });
       res.cookie('nickname', data.nickname, {
-        maxAge: 1000 * 60 * 1000
+        maxAge: 1000 * 60 * 10
       })
       res.cookie('isadmin', data.isadmin, {
-        maxAge: 1000 * 60 * 1000
+        maxAge: 1000 * 60 * 10
       })
       res.redirect('/');
     }
@@ -112,98 +112,31 @@ router.get('/getSelect', function (req, res) {
 router.post('/addPhone', upload.single('file'), function (req, res) {
   var phoneName = req.body.phoneName; //手机名称
   var brand = req.body.brand; //手机品牌
-  if (brand == 1) {
-    brand = "苹果"
-  } else if (brand == 2) {
-    brand = "小米"
-  } else if (brand == 3) {
-    brand = "三星"
-  } else if (brand == 4) {
-    brand = "华为"
-  } else if (brand == 5) {
-    brand = "魅族"
-  }
+
   var guided = req.body.guided; //官方价
   var price = req.body.price; //回收价
-  var filename = 'phoneImg/' + new Date().getTime() + "_" + req.file.originalname;
-  var newFileName = path.resolve(__dirname, '../public/', filename);
-  try {
-    // fs.renameSync(req.file.path, newFileName);
-    var data = fs.readFileSync(req.file.path);
-    fs.writeFileSync(newFileName, data);
 
-    usersModel.phoneAdd({
-      phoneName: phoneName,
-      brand: brand,
-      guided: guided,
-      price: price,
-      filename: filename
-    }, function (err) {
-      if (err) {
-        res.send('error', err);
-      } else {
-        res.redirect('/phone.html');
-      }
-    })
-  } catch (error) {
+  if (phoneName == "") {
     res.render('error', {
-      msg: '新增失败'
+      msg: '名称不能为空'
     })
-  }
-
-})
-
-//修改手机
-router.post('/UpdatePhone', upload.single('file'), function (req, res) {
-  // console.log(req.body);
-  var id = req.body.id;
-  var phoneName = req.body.phoneName;
-  var brand = req.body.brand;
-  var guided = req.body.guided;
-  var price = req.body.price;
-  if (brand == 1) {
-    brand = "苹果"
-  } else if (brand == 2) {
-    brand = "小米"
-  } else if (brand == 3) {
-    brand = "三星"
-  } else if (brand == 4) {
-    brand = "华为"
-  } else if (brand == 5) {
-    brand = "魅族"
-  }
-
-  if (req.file == undefined) {
-    try {
-      // var data = fs.readFileSync(req.file.path);
-      // fs.writeFileSync(newFileName, data);
-
-      usersModel.phoneUpdate({
-        id: id,
-        phoneName: phoneName,
-        brand: brand,
-        guided: guided,
-        price: price,
-        // filename: filename
-      }, function (err) {
-        if (err) {
-          res.send('error', err);
-        } else {
-          res.redirect('/phone.html');
-        }
-      })
-    } catch (error) {
-      res.render('error', error);
-    }
+  } else if (guided == "") {
+    res.render('error', {
+      msg: '官方价不能为空'
+    })
+  } else if (price == "") {
+    res.render('error', {
+      msg: '回收价不能为空'
+    })
   } else {
     var filename = 'phoneImg/' + new Date().getTime() + "_" + req.file.originalname;
     var newFileName = path.resolve(__dirname, '../public/', filename);
     try {
+      // fs.renameSync(req.file.path, newFileName);
       var data = fs.readFileSync(req.file.path);
       fs.writeFileSync(newFileName, data);
 
-      usersModel.phoneUpdate({
-        id: id,
+      usersModel.phoneAdd({
         phoneName: phoneName,
         brand: brand,
         guided: guided,
@@ -217,11 +150,82 @@ router.post('/UpdatePhone', upload.single('file'), function (req, res) {
         }
       })
     } catch (error) {
-      res.render('error', error);
+      res.render('error', {
+        msg: '新增失败'
+      })
     }
   }
+})
 
+//修改手机
+router.post('/UpdatePhone', upload.single('file'), function (req, res) {
+  var id = req.body.id;
+  var phoneName = req.body.phoneName;
+  var brand = req.body.brand;
+  var guided = req.body.guided;
+  var price = req.body.price;
 
+  if (phoneName == "") {
+    res.render('error', {
+      msg: '名称不能为空'
+    })
+  } else if (guided == "") {
+    res.render('error', {
+      msg: '官方价不能为空'
+    })
+  } else if (price == "") {
+    res.render('error', {
+      msg: '回收价不能为空'
+    })
+  } else {
+    if (req.file == undefined) {
+      try {
+        // var data = fs.readFileSync(req.file.path);
+        // fs.writeFileSync(newFileName, data);
+
+        usersModel.phoneUpdate({
+          id: id,
+          phoneName: phoneName,
+          brand: brand,
+          guided: guided,
+          price: price,
+          // filename: filename
+        }, function (err) {
+          if (err) {
+            res.send('error', err);
+          } else {
+            res.redirect('/phone.html');
+          }
+        })
+      } catch (error) {
+        res.render('error', error);
+      }
+    } else {
+      var filename = 'phoneImg/' + new Date().getTime() + "_" + req.file.originalname;
+      var newFileName = path.resolve(__dirname, '../public/', filename);
+      try {
+        var data = fs.readFileSync(req.file.path);
+        fs.writeFileSync(newFileName, data);
+
+        usersModel.phoneUpdate({
+          id: id,
+          phoneName: phoneName,
+          brand: brand,
+          guided: guided,
+          price: price,
+          filename: filename
+        }, function (err) {
+          if (err) {
+            res.send('error', err);
+          } else {
+            res.redirect('/phone.html');
+          }
+        })
+      } catch (error) {
+        res.render('error', error);
+      }
+    }
+  }
 })
 
 //删除手机
@@ -246,41 +250,13 @@ router.get("/phoneDel", function (req, res) {
 router.post("/addBrand", upload.single('file'), function (req, res) {
 
   var brandName = req.body.brandName; //品牌名称
-
-  var filename = 'phoneImg/' + new Date().getTime() + "_" + req.file.originalname;
-  var newFileName = path.resolve(__dirname, '../public/', filename);
-  try {
-    // fs.renameSync(req.file.path, newFileName);
-    var data = fs.readFileSync(req.file.path);
-    fs.writeFileSync(newFileName, data);
-
-    usersModel.brandAdd({
-      brandName: brandName,
-      filename: filename
-    }, function (err) {
-      if (err) {
-        res.send('error', err);
-      } else {
-        res.redirect('/brand.html');
-      }
-    })
-  } catch (error) {
+  if (brandName == "") {
     res.render('error', {
-      msg: '新增失败'
+      msg: '品牌名称不能为空'
     })
-  }
-})
-
-//修改品牌
-router.post('/UpdateBrand', upload.single('file'), function (req, res) {
-  var id = req.body.id;
-  var brandName = req.body.brandName;
-  if (req.file == undefined) {
+  } else if (req.file == undefined) {
     try {
-      // var data = fs.readFileSync(req.file.path);
-      // fs.writeFileSync(newFileName, data);
-      usersModel.brandUpdate({
-        id: id,
+      usersModel.brandAdd({
         brandName: brandName,
         // filename: filename
       }, function (err) {
@@ -291,7 +267,9 @@ router.post('/UpdateBrand', upload.single('file'), function (req, res) {
         }
       })
     } catch (error) {
-      res.render('error', error);
+      res.render('error', {
+        msg: '新增失败'
+      })
     }
   } else {
     var filename = 'phoneImg/' + new Date().getTime() + "_" + req.file.originalname;
@@ -300,8 +278,7 @@ router.post('/UpdateBrand', upload.single('file'), function (req, res) {
       var data = fs.readFileSync(req.file.path);
       fs.writeFileSync(newFileName, data);
 
-      usersModel.brandUpdate({
-        id: id,
+      usersModel.brandAdd({
         brandName: brandName,
         filename: filename
       }, function (err) {
@@ -312,8 +289,67 @@ router.post('/UpdateBrand', upload.single('file'), function (req, res) {
         }
       })
     } catch (error) {
-      res.render('error', error);
+      res.render('error', {
+        msg: '新增失败'
+      })
     }
+
+  }
+
+
+})
+
+//修改品牌
+router.post('/UpdateBrand', upload.single('file'), function (req, res) {
+  var id = req.body.id;
+  var brandName = req.body.brandName;
+
+  if (brandName == "") {
+    res.render('error', {
+      msg: '品牌名称不能为空'
+    })
+  } else {
+    if (req.file == undefined) {
+      try {
+        // var data = fs.readFileSync(req.file.path);
+        // fs.writeFileSync(newFileName, data);
+        usersModel.brandUpdate({
+          id: id,
+          brandName: brandName,
+          // filename: filename
+        }, function (err) {
+          if (err) {
+            res.send('error', err);
+          } else {
+            res.redirect('/brand.html');
+          }
+        })
+      } catch (error) {
+        res.render('error', error);
+      }
+    } else {
+      var filename = 'phoneImg/' + new Date().getTime() + "_" + req.file.originalname;
+      var newFileName = path.resolve(__dirname, '../public/', filename);
+      try {
+        var data = fs.readFileSync(req.file.path);
+        fs.writeFileSync(newFileName, data);
+
+        usersModel.brandUpdate({
+          id: id,
+          brandName: brandName,
+          filename: filename
+        }, function (err) {
+          if (err) {
+            res.send('error', err);
+          } else {
+            res.redirect('/brand.html');
+          }
+        })
+      } catch (error) {
+        res.render('error', error);
+      }
+    }
+
   }
 })
 //删除品牌

@@ -24,8 +24,7 @@ router.get('/', function (req, res, next) {
 // })
 //品牌管理
 router.get('/brand.html', function (req, res) {
-  if (req.cookies.username && parseInt(req.cookies.isadmin)) {
-
+  if (req.cookies.username && (parseInt(req.cookies.isadmin) == 1 || parseInt(req.cookies.isadmin) == 0)) {
     let page = req.query.page || 1; //页码
     let pageSize = req.query.pageSize || 3; //每页显示条数
     usersModel.brandList({
@@ -55,7 +54,7 @@ router.get('/brand.html', function (req, res) {
 
 //手机管理
 router.get('/phone.html', function (req, res) {
-  if (req.cookies.username && parseInt(req.cookies.isadmin)) {
+  if (req.cookies.username && (parseInt(req.cookies.isadmin) == 1 || parseInt(req.cookies.isadmin) == 0)) {
     let page = req.query.page || 1; //页码
     let pageSize = req.query.pageSize || 2; //每页显示条数
     usersModel.phoneList({
